@@ -1,0 +1,102 @@
+<meta charset="utf-8">
+<canvas id="tela" width="960" height="600"></canvas>
+<script>
+
+	function grid(largQuad) {
+	
+		var linhas = tela.height / largQuad;
+		var colunas = tela.width / largQuad;
+		ctx.strokeStyle = "lightgray";
+		
+		for(var j=0; j<linhas; j++) {
+			for(var i=0; i<colunas; i++) {
+				
+				ctx.strokeRect(i*largQuad,j*largQuad,largQuad,largQuad);
+			}
+		}
+	}
+	
+	function poligono(cor, pontos) {
+	
+		ctx.fillStyle = cor;
+		
+		ctx.beginPath();
+		ctx.moveTo(pontos[0][0], pontos[0][1]);
+		
+		for(var i=1; i<pontos.length; i++) {
+			ctx.lineTo(pontos[i][0], pontos[i][1]);
+		}
+		
+		ctx.fill();
+	}
+	
+	function retangulo(x, y, larg, alt, cor) {
+		var pontos = [];
+		pontos.push([x,y]);
+		pontos.push([x,y+alt]);
+		pontos.push([x+larg, y+alt]);
+		pontos.push([x, y+alt]);
+		poligono(cor, pontos);
+	}
+	
+	function circulo(x, y, raio, cor) {
+		ctx.fillStyle = cor;
+		ctx.beginPath();
+		ctx.arc(x, y, raio, 0, 2 * 3.14);
+		ctx.fill();
+	}
+	
+	function funcaoQuadratica(x) {
+		return x * x * 0.01;
+	}
+	
+	function seno(x) {
+		return Math.sin(x/20) * 50 + 300;
+	}
+	
+	function desenhaFuncao(funcao, cor) {
+
+		for(var x=0; x<tela.width; x = x+5) {
+		
+			y = funcao(x);
+			circulo(x, tela.width-y, 2, cor);
+		
+		}
+	}
+	
+	function limpaTela() {
+		ctx.clearRect(0, 0, tela.width, tela. height);
+	}
+	
+	function clicouNoCanvas(evento) {
+		var x = evento.pageX;
+		var y = evento.pageY;
+		circulo(x,y, 25, cores[corAtual]);
+		corAtual = Math.round(corAtual % cores.length) + 1;
+	}
+	
+	function desenhaCirculo() {
+		limpaTela();
+		circulo(x, y, 50, cor);
+		x++;
+	}
+	
+	function desenhaImagem() {
+		//ctx.drawImage(img, 20, 20);
+		ctx.drawImage(img, 0, 0, 96, 54, tela.width/2 - 48, tela.height/2 - 48, 96, 54);
+	}
+
+	
+	const tela = document.querySelector("canvas");
+	const ctx = tela.getContext("2d");
+	const cores = ["red", "green", "black", "yellow", "blue", "lightgreen", "navy"];
+	var corAtual = 0;
+			
+	grid(20);
+
+	var img = new Image();
+	img.src = "simba.png";
+	img.onload = desenhaImagem;
+	
+	
+</script>

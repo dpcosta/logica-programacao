@@ -1,0 +1,25 @@
+<meta charset="utf-8">
+<script>
+
+	function pulaLinha() {
+		document.write("<br>");
+	}
+	
+	function mostra(frase) {
+		document.write(frase);
+	}
+	
+	
+	var tamanho = parseInt(prompt("Tamanho do quadrado"));
+
+	for(var i = 1; i <= tamanho; i++) {
+		
+		for(var j = 1; j <= tamanho; j++) {
+		
+			mostra("*");
+		}
+		
+		pulaLinha();
+	}
+	
+</script>

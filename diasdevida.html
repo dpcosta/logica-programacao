@@ -1,0 +1,26 @@
+<meta charset="utf-8">
+<script>
+
+	function pulaLinha() {
+		document.write("<br>");
+	}
+		
+	function mostra(frase) {
+		document.write(frase);
+		pulaLinha();
+	}
+	
+	
+	function calculaImc(nome, peso, altura) {
+		var imc = peso / (altura * altura);
+		mostra("O imc de " + nome + " é " + imc);
+	}
+	
+	function idadeEmDias(anos) {
+		return anos * 365;
+	}
+	
+	var idadeEmAnos = prompt("Qual sua idade?");
+	mostra("Você nasceu há " + idadeEmDias(idadeEmAnos) + " dias.");
+
+</script>

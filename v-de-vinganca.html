@@ -1,0 +1,30 @@
+<meta charset="utf-8">
+<script>
+
+	function pulaLinha() {
+		document.write("<br>");
+	}
+	
+	function mostra(frase) {
+		document.write(frase);
+	}
+	
+	var tamanho = 21;
+
+	for(var i = 1; i <= tamanho; i++) {
+		
+		var colunas = tamanho * 2;
+		
+		for(var j = 1; j <= colunas; j++) {
+		
+			if (j==i || j==colunas-i) {
+				mostra("*");
+			} else {
+				mostra("_");
+			}
+		}
+		
+		pulaLinha();
+	}
+	
+</script>

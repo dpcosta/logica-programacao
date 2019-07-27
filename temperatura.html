@@ -1,0 +1,24 @@
+<meta charset="utf-8">
+<script>
+
+	function pulaLinha() {
+		document.write("<br>");
+	}
+	
+	
+	function mostra(frase) {
+		document.write(frase);
+		pulaLinha();
+	}
+	
+	
+	function calculaFahrenheit(celsius) {
+		var fahrenheint = celsius * 1.8 + 32;
+		mostra(celsius + " graus Celsius equivalem a " + fahrenheint + " Fahrenheit");
+	}
+	
+	calculaFahrenheit(1);
+	calculaFahrenheit(5);
+	calculaFahrenheit(23);
+
+</script>

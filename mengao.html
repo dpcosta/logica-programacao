@@ -1,0 +1,32 @@
+<meta charset="utf-8">
+<canvas id="tela" width="600" height="400"></canvas>
+<script>
+
+	function pintaFaixa(x, y, largura, altura, cor) {
+		ctx2d.fillStyle = cor;
+		ctx2d.fillRect(x,y,largura,altura);
+	}
+
+	var largura = parseInt(prompt("Largura da faixas"));
+	var tela = document.querySelector("canvas");
+	var ctx2d = tela.getContext("2d");
+		
+	var larguraTotal = 600;
+	var totalFaixas = larguraTotal / largura;
+	var cor = "green";
+	
+	//bandeira do mengão
+	for(var x=0; x<totalFaixas; x++){
+		
+		if ((x % 2) == 0) {
+		
+			cor = "black";
+		} else {
+		
+			cor = "red";
+		}
+		pintaFaixa(x * largura,0,largura,400, cor);	
+	}
+
+	
+</script>

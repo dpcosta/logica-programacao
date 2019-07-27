@@ -1,0 +1,123 @@
+<meta charset="utf-8">
+<label>Raio:</label>
+<input id="raio" type="number" min="20" max="50" value="30" />
+<select>
+	<option value="red">Vermelho</option>
+	<option value="green">Verde</option>
+	<option value="blue">Azul</option>
+</select>
+<button>Iniciar Animação!</button>
+<br>
+<canvas id="tela" width="400" height="400"></canvas>
+<script>
+
+	function circulo(x, y, raio, cor) {
+		ctx.fillStyle = cor;
+		ctx.beginPath();
+		ctx.arc(x, y, raio, 0, 2 * 3.14);
+		ctx.fill();
+	}
+	
+	function limpaTela(x, y, w, h) {
+		var fillS = ctx.fillStyle;
+		ctx.fillStyle = "white";
+		ctx.clearRect(x, y, w, h);
+		if (iniciou == true) {
+			ctx.fillStyle = "black";
+			ctx.fillText("Use as setas para movimentar o círculo!", 20, 20);
+		}
+		ctx.strokeStyle = cor;
+		ctx.strokeRect(x, y, w, h);
+		ctx.fillStyle = fillS;
+	}
+	
+	function desenha() {
+		limpaTela(0, 0, tela.width, tela.height);
+		circulo(x, y, raio, cor);
+		
+		//verifica colisão
+		if ( (x>tela.width-(raio)) && (direcao == "direita") ) {
+			direcao = "esquerda";
+		}
+		
+		if ( (x<raio) && (direcao == "esquerda") ){
+			direcao = "direita";
+		}
+		
+		if ( (direcao == "cima") && (y<raio) ) {
+			direcao = "baixo";
+		}
+		
+		if ( (direcao == "baixo") && (y>tela.height-raio) ) {
+			direcao = "cima";
+		}
+		
+		//altera coordenadas de acordo com direção
+		switch(direcao) {
+			case "direita":
+				x++;
+				break;
+			case "esquerda":
+				x--;
+				break;
+			case "cima":
+				y--;
+				break;
+			case "baixo":
+				y++;
+				break;
+		}
+	}
+	
+	function mudaDirecao(evento) {
+	
+		console.log(evento.key);
+	
+		switch(evento.key) {
+			case "ArrowUp":
+				direcao = "cima";
+				break;
+			case "ArrowDown":
+				direcao = "baixo";
+				break;
+			case "ArrowLeft":
+				direcao = "esquerda";
+				break;
+			case "ArrowRight":
+				direcao = "direita";
+				break;
+		}
+		
+	}
+	
+	function iniciaAnimacao() {
+		raio = parseInt(document.querySelector("input").value);
+		cor = document.querySelector("select").value;
+		iniciou = !iniciou;
+		if (iniciou == true) {
+			idInterval = setInterval(desenha, 5);
+			btn.textContent = "Parar animação!";
+		} else {
+			clearInterval(idInterval);
+			btn.textContent = "Iniciar animação!";
+		}
+	}
+
+	const tela = document.querySelector("canvas");
+	const btn = document.querySelector("button");
+	const ctx = tela.getContext("2d");
+	var raio = parseInt(document.querySelector("input").value);
+	var idInterval;
+	var iniciou = false;
+	var x = 1;
+	var y = 100;
+	var direcao = "direita";
+	var cor = "red";
+	
+	limpaTela(0, 0, tela.width, tela. height);
+				
+	btn.addEventListener("click", iniciaAnimacao);
+	document.addEventListener("keydown", mudaDirecao);
+	
+	
+</script>

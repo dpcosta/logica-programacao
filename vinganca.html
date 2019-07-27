@@ -1,0 +1,28 @@
+<meta charset="utf-8">
+<script>
+	function pulaLinha() {
+		document.write("<br>");
+	}
+	
+	var linhas=4;
+	var colunas=7;
+	
+	for(var i=1; i<=linhas; i++) {
+		for(var j=1; j<=colunas; j++) {
+			var teste = (j-i <= 1);
+			
+			//1,1 e 1,7
+			//2,2 e 2,6
+			//3,3 e 3,5
+			//4,4 e 4,4
+						
+			if( (i==j) || (i+j==8) ) {
+				document.write("*");
+			} else {
+				document.write("-");
+			}
+		}
+		pulaLinha();
+	}
+	
+</script>

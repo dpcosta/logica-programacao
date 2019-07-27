@@ -1,0 +1,56 @@
+<meta charset="utf-8">
+
+<input id="numero1" />
+<br>
+<input id="numero2" />
+<br>
+<input id="numero3" />
+<br>
+<input id="numero4" />
+<br>
+<input id="numero5" />
+<br>
+<input id="numero6" />
+<br>
+
+<button id="verificar">Verificar!</button>
+
+<script>
+	function obterNumeroRandomico() {
+		return Math.round(Math.random()*60);
+	}
+	
+	function verificarLoteria(){
+
+		var acertos = [];
+		for(var i=1; i<7; i++) {
+			var numJogado = parseInt(document.getElementById("numero"+i).value);
+			if (sorteados.indexOf(numJogado)>=0) {
+				acertos.push(numJogado);
+			}
+		}
+		console.log(acertos);
+				
+		if (acertos.length > 0) {
+			alert("Você acertou " + acertos.length + " número(s).");
+		} else {
+			alert("Infelizmente você não acertou nada.");
+		}
+		
+	}
+
+	var sorteados = [];
+	while (sorteados.length<6) {
+		var num = obterNumeroRandomico();
+		if ( (sorteados.indexOf(num)<0) && (num>0) ) {
+			sorteados.push(num);
+		}
+	}
+	console.log(sorteados);
+	
+	var btnVerificar = document.getElementById("verificar");
+	console.log(btnVerificar);
+	btnVerificar.onclick = verificarLoteria;
+	
+	
+</script>

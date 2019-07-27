@@ -1,0 +1,85 @@
+<meta charset="utf-8">
+<canvas id="tela" width="600" height="800"></canvas>
+<script>
+
+	function grid(largQuad) {
+	
+		var linhas = 800 / largQuad;
+		var colunas = 600 / largQuad;
+		ctx.strokeStyle = "lightgray";
+		
+		for(var j=0; j<linhas; j++) {
+			for(var i=0; i<colunas; i++) {
+				
+				ctx.strokeRect(j*largQuad,i*largQuad,largQuad,largQuad);
+			}
+		}
+		
+		
+	}
+	
+	function poligono(cor, pontos) {
+	
+		ctx.fillStyle = cor;
+		
+		ctx.beginPath();
+		ctx.moveTo(pontos[0][0], pontos[0][1]);
+		
+		for(var i=1; i<pontos.length; i++) {
+			ctx.lineTo(pontos[i][0], pontos[i][1]);
+		}
+		
+		ctx.fill();
+	}
+	
+	function circulo(x, y, raio, cor) {
+		ctx.fillStyle = cor;
+		ctx.beginPath();
+		ctx.arc(x, y, raio, 0, 2 * 3.14);
+		ctx.fill();
+	}
+	
+	function funcaoQuadratica(x) {
+		return x * x * 0.01;
+	}
+	
+	function seno(x) {
+		return Math.sin(x/20) * 50 + 300;
+	}
+	
+	function desenhaFuncao(funcao, cor) {
+
+		for(var x=0; x<600; x = x+5) {
+		
+			y = funcao(x);
+			circulo(x, 600-y, 2, cor);
+		
+		}
+	}
+
+	const tela = document.querySelector("canvas");
+	const ctx = tela.getContext("2d");
+			
+	grid(20);
+
+	ctx.lineWidth = 10;
+	ctx.strokeStyle = "black";
+	// Wall
+	ctx.strokeRect(75, 140, 150, 110);
+
+	// Door
+	ctx.fillRect(130, 190, 40, 60);
+
+	// Roof
+	ctx.moveTo(50, 140);
+	ctx.lineTo(150, 60);
+	ctx.lineTo(250, 140);
+	ctx.closePath();
+	ctx.stroke();
+	
+	//Texto
+	ctx.fillStyle = "red";
+	ctx.fillText("Olá, mundo!", 100, 200);
+
+	
+</script>

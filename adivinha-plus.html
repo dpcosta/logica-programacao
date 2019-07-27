@@ -1,0 +1,43 @@
+<meta charset="utf-8">
+
+<input id="numero" />
+<button id="adivinhar">Compare com o número que estou pensando!</button>
+
+<script>
+
+	function numeroAleatorio() {
+		return Math.round(Math.random()*10);
+	}	
+	
+	function verifica() {
+	
+		if(caixa.value == segredo) {
+			alert("Você ACERTOU!");
+		} else {
+			alert("Você ERROU");
+		}
+		
+		//outro if?
+		//if só com ||?
+		//e se aumentar as opções de segredo?
+		//reparem que estou repetindo o teste
+		//poderia fazer for(var i=1; i<=3; i++) { if (caixa.value == segredo) .... }
+		//será que consigo uma maneira de representar múltiplos valores em um só lugar?
+		//sim, com uma estrutura chamada array!
+		//a idéia é var segredo = 2,4,6; mas desse jeito não pode. Então uso colchetes pra juntar os valores;
+		
+		caixa.value = "";
+		caixa.focus();
+	}
+	
+	var segredo1 = numeroAleatorio();
+	var segredo2 = numeroAleatorio();
+	var segredos = [2,6,9];
+
+	var caixa = document.querySelector("input");
+	caixa.focus();
+	var botao = document.querySelector("button");
+	botao.onclick = verifica;
+	
+
+</script>

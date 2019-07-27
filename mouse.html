@@ -1,0 +1,167 @@
+<meta charset="utf-8">
+<label>Raio:</label>
+<input id="raio" type="number" min="20" max="50" />
+<select>
+	<option value="red">Vermelho</option>
+	<option value="green">Verde</option>
+	<option value="blue">Azul</option>
+</select>
+<button>Iniciar Animação!</button>
+<br>
+<canvas id="tela" width="400" height="400"></canvas>
+<script>
+
+	function grid(largQuad) {
+	
+		var linhas = tela.height / largQuad;
+		var colunas = tela.width / largQuad;
+		ctx.strokeStyle = "lightgray";
+		ctx.fillStyle = "white";
+		
+		//console.log(linhas);/
+		//console.log(colunas);
+		
+		for(var j=0; j<linhas; j++) {
+			for(var i=0; i<colunas; i++) {
+				
+				ctx.strokeRect(i*largQuad,j*largQuad,largQuad,largQuad);
+				ctx.fillRect(i*largQuad,j*largQuad,largQuad,largQuad);
+			}
+		}
+		
+		
+	}
+	
+	function poligono(cor, pontos) {
+	
+		ctx.fillStyle = cor;
+		
+		ctx.beginPath();
+		ctx.moveTo(pontos[0][0], pontos[0][1]);
+		
+		for(var i=1; i<pontos.length; i++) {
+			ctx.lineTo(pontos[i][0], pontos[i][1]);
+		}
+		
+		ctx.fill();
+	}
+	
+	function circulo(x, y, raio, cor) {
+		ctx.fillStyle = cor;
+		ctx.beginPath();
+		ctx.arc(x, y, raio, 0, 2 * 3.14);
+		ctx.fill();
+	}
+	
+	function funcaoQuadratica(x) {
+		return x * x * 0.01;
+	}
+	
+	function seno(x) {
+		return Math.sin(x/20) * 50 + 300;
+	}
+	
+	function desenhaFuncao(funcao, cor) {
+
+		for(var x=0; x<tela.width; x = x+5) {
+		
+			y = funcao(x);
+			circulo(x, tela.width-y, 2, cor);
+		
+		}
+	}
+	
+	function limpaTela(x, y, w, h) {
+		var fillS = ctx.fillStyle;
+		ctx.fillStyle = "white";
+		ctx.clearRect(x, y, w, h);
+		if (iniciou == true) {
+			ctx.fillStyle = "black";
+			ctx.fillText("Clique para mudar a bola de direção!", 20, 20);
+			ctx.fillText("Direção atual: " + direcao, 20, 40);
+		}
+		ctx.strokeStyle = cor;
+		ctx.strokeRect(x, y, w, h);
+		ctx.fillStyle = fillS;
+	}
+	
+	function clicouNoCanvas(evento) {
+		var x = evento.pageX;
+		var y = evento.pageY;
+		circulo(x,y, 25, cores[corAtual]);
+		corAtual = Math.round(corAtual % cores.length) + 1;
+	}
+	
+	function desenhaCirculo() {
+		limpaTela();
+		circulo(x, y, 50, cor);
+		x++;
+	}
+	
+	function desenhaImagem(x, y) {
+		ctx.drawImage(img, x, y);
+	}
+	
+	function desenha() {
+		//limpaTela(x-1, y, 100, 100);
+		limpaTela(0, 0, tela.width, tela.height);
+		//grid(200);
+		//desenhaImagem(x,y);
+		circulo(x, y, raio, cor);
+		
+		if ( (x>tela.width-(raio)) && (direcao == "direita") ) {
+			direcao = "esquerda";
+		}
+		
+		if ( (x<raio) && (direcao == "esquerda") ){
+			direcao = "direita";
+		}
+		
+		if (direcao == "direita") {
+			x++;
+		} else { 
+			x--;
+		}
+		
+	}
+	
+	function mudaDirecao() {
+	
+		if (direcao == "direita") {
+			direcao = "esquerda";
+		} else {
+			direcao = "direita";
+		}
+	}
+	
+	function iniciaAnimacao() {
+		raio = parseInt(document.querySelector("input").value);
+		cor = document.querySelector("select").value;
+		iniciou = !iniciou;
+		if (iniciou == true) {
+			idInterval = setInterval(desenha, 5);
+			btn.textContent = "Parar animação!";
+		} else {
+			clearInterval(idInterval);
+			btn.textContent = "Iniciar animação!";
+		}
+	}
+
+	const tela = document.querySelector("canvas");
+	const btn = document.querySelector("button");
+	const ctx = tela.getContext("2d");
+	var raio = parseInt(document.querySelector("input").value);
+	var idInterval;
+	var iniciou = false;
+	var x = 1;
+	var y = 100;
+	var direcao = "direita";
+	var cor = "red";
+	
+	limpaTela(0, 0, tela.width, tela. height);
+				
+	tela.onclick = mudaDirecao;
+	btn.onclick = iniciaAnimacao;
+	
+	
+</script>

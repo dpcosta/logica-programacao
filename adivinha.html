@@ -1,0 +1,37 @@
+<meta charset="utf-8">
+<script>
+
+	function pulaLinha() {
+		document.write("<br>");
+	}
+		
+	function mostra(frase) {
+		document.write(frase);
+		pulaLinha();
+	}
+	
+	function obterNumeroAleatorio() {
+		return Math.round(Math.random()*10);
+	}
+		
+	var numeroAleatorio = obterNumeroAleatorio();
+	var numTentativas = 3;
+	for(var i=1; i <= numTentativas; i++) {
+
+		var chute = parseInt(prompt("Adivinhe um número de 1 a 10. Tentativa " + i + "/" + numTentativas));
+		
+		if (chute == numeroAleatorio) {
+	
+			alert("Parabéns, você ACERTOU \\o/");
+			break; //sai do loop!
+		} else {
+		
+			alert("Ops, você ERROU ;-(");
+			//mostra("Mais sorte na próxima vez...");
+		}
+
+	
+	}
+
+
+</script>

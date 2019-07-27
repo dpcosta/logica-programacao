@@ -1,0 +1,55 @@
+<meta charset="utf-8">
+
+
+<input id="numero" autofocus />
+<button id="adivinhar">Compare com o número que estou pensando!</button>
+
+<script>
+
+	function obterNumeroRandomico() {
+		return Math.round(Math.random()*10);
+	}
+	
+	function existeNumero(num) {
+	
+		var achou = false;
+		for(var i=0; i<segredos.length; i++) {
+			if (num == segredos[i]) {
+				achou = true;
+				break;
+			}
+		}
+		return achou;
+	}
+	
+	function botaoClicado() {
+		if(existeNumero(caixa.value)) {
+			alert("Você acertou!");
+		} else {
+			alert("Você errou!");
+		}
+	}
+	
+	function preencheSegredos() {
+		
+		var qtde = 1;
+		while (qtde <= 6) {
+		
+			var numSorteado = obterNumeroRandomico();
+			var achou = existeNumero(numSorteado);
+			if (achou == false) {
+				segredos.push(numSorteado);
+				qtde++;
+			}		
+		}
+	}
+	
+	var segredos = [];
+	preencheSegredos();
+	console.log(segredos);
+		
+	var caixa = document.getElementById("numero");
+	var botao = document.getElementById("adivinhar");
+	botao.onclick = botaoClicado;
+
+</script>

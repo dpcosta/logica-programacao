@@ -1,0 +1,68 @@
+<meta charset="utf-8">
+<canvas id="tela" width="600" height="800"></canvas>
+<script>
+
+	function pintaFaixa(x, y, largura, altura, cor) {
+		ctx2d.fillStyle = cor;
+		ctx2d.fillRect(x,y,largura,altura);
+	}
+	
+	
+	function grid(largQuad) {
+	
+		var linhas = 800 / largQuad;
+		var colunas = 600 / largQuad;
+		ctx2d.strokeStyle = "black";
+		
+		for(var j=0; j<linhas; j++) {
+			for(var i=0; i<colunas; i++) {
+				
+				ctx2d.strokeRect(j*largQuad,i*largQuad,largQuad,largQuad);
+			}
+		}
+		
+		
+	}
+	
+	function poligono(cor, pontos) {
+	
+		ctx2d.fillStyle = cor;
+		
+		ctx2d.beginPath();
+		ctx2d.moveTo(pontos[0][0], pontos[0][1]);
+		
+		for(var i=1; i<pontos.length; i++) {
+			ctx2d.lineTo(pontos[i][0], pontos[i][1]);
+		}
+		
+		ctx2d.fill();
+	}
+	
+	function circulo(x, y, raio) {
+		ctx2d.fillStyle = "blue";
+		ctx2d.beginPath();
+		ctx2d.arc(x, y, raio, 0, 2 * 3.14);
+		ctx2d.fill();
+	}
+
+	var tela = document.querySelector("canvas");
+	var ctx2d = tela.getContext("2d");
+		
+	var cor = "green";
+	
+	grid(50);
+	
+	//50, 50, 400, 200
+	var pontos = [];
+	pontos.push([50,50]);
+	pontos.push([450,50]);
+	pontos.push([450,250]);
+	pontos.push([50,250]);
+	//pontos.push([600,250]);
+	pontos.push([]);
+	poligono(cor, pontos);
+	
+	circulo(150, 200, 60);
+
+	
+</script>
